@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 // fixtures and mock
-const user = {id: 'user7'};
+const user = {id: 'dani420'};
 const getUser = () => user;
 
 
@@ -29,12 +29,12 @@ const getUser = () => user;
 // }
 
 
-const ccpPath = path.resolve(__dirname, 'ccp', 'connection-org1.json');
+const ccpPath = path.resolve(__dirname, '..', 'network', 'organizations', 'peerOrganizations', 'org1.blockotus.com', 'connection-org1.json');
 console.log(ccpPath);
 const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
 const getWallet = async () => {
-    const walletPath = path.resolve(__dirname, 'wallet');
+    const walletPath = path.resolve(__dirname, '..', 'admins', 'wallet');
     console.log('1abc')
     // get wallet
     const wallet = await Wallets.newFileSystemWallet(walletPath);
@@ -50,7 +50,7 @@ const getWallet = async () => {
     // check if user is registered, register if not
     var identity = await wallet.get(user.id);
     console.log('4abc')
-    if (!identity) await registerUser({adminUser})
+    if (!identity) await registerUser({adminUser: adminUser, user: user})
     console.log('5abc')
 
     return wallet;
@@ -102,21 +102,26 @@ const queryTransaction = async ({
 }
 
 const registerUser = async ({
-    adminUser
+    adminUser,
+    user
 }) => {
     // Create a new CA client for interacting with the CA.
     const caURL = ccp.certificateAuthorities['ca.org1.blockotus.com'].url;
     const ca = new FabricCAServices(caURL);
 
+    console.log('1sss');
+
     const secret = await ca.register({
-        enrollmentID: getUser().id,
+        enrollmentID: user.id,
         role: 'client'
     }, adminUser);
+    console.log('2sss');
 
     const enrollment = await ca.enroll({
-        enrollmentID: getUser().id,
+        enrollmentID: user.id,
         enrollmentSecret: secret
     });
+    console.log('3sss');
 
     const x509Identity = {
         credentials: {
@@ -126,16 +131,17 @@ const registerUser = async ({
         mspId: 'Org1MSP',
         type: 'X.509',
     };
+    console.log('4sss');
 
     var wallet = wallet || await getWallet();
-    return await wallet.put(getUser(), x509Identity);
+    return await wallet.put(user, x509Identity);
 }
 
 const test = async () => {
     var transactionName = "createIdentity";
     var transactionArgs = {
         "registryDate": '2020/04/01 04:20:00 GMT+1',
-        "nationalId": '2*8*5*3*N',
+        "nationalId": '12*8*5*3*N',
         "nation": 'Spain',
         "birthDate": '1992/01/01 08:20:00 GMT+1',
         "name": 'Daniel',

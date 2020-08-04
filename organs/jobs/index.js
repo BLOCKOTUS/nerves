@@ -1,11 +1,14 @@
-const { user1 } = require('../../fixtures/keypairs');
 
 const execute = ({method, data, socket, reason}) => {
+
+    // submit job
+
+    // then
     socket.emit('answer', JSON.stringify({
         reason,
         answer: {
-            publicKey: user1.publicKey,
-            id: 1,
+            success: true,
+            data
         }
     }))
 }

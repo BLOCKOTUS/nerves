@@ -3,14 +3,16 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
 const identity = require('./organs/identity');
+const jobs = require('./organs/jobs');
 
 const organs = {
-    identity
+    identity,
+    jobs
 }
 
 const execute = (socketData, socket) => {
-    let {organ, method, data} = JSON.parse(socketData);
-    organs[organ].execute({method, data, socket});
+    let {organ, method, data, reason} = JSON.parse(socketData);
+    organs[organ].execute({method, data, socket, reason});
 }
 
 io.on('connection', (socket) => {

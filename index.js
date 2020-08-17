@@ -2,6 +2,8 @@ var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+// TODO: swap socketio for http api
+
 const identity = require('./organs/identity');
 const jobs = require('./organs/jobs');
 

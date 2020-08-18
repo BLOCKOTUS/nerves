@@ -1,6 +1,6 @@
 const { user1 } = require('../../fixtures/keypairs');
 
-const identity = require('../../../../organs/identity/fabric/fabidentity/javascript');
+const identity = require('../../../../organs/identity/fabric/identity/javascript');
 
 const post = async ({data, socket, reason}) => {
     const args = {

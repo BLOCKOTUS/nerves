@@ -1,8 +1,4 @@
 var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
-
-// TODO: swap socketio for http api
 
 const identity = require('./organs/identity');
 const jobs = require('./organs/jobs');
@@ -12,25 +8,30 @@ const organs = {
     jobs
 }
 
-const execute = (socketData, socket) => {
-    let {organ, method, data, reason} = JSON.parse(socketData);
-    organs[organ].execute({method, data, socket, reason});
-}
+app.get('/identity', (req, res) => {
+  identity
+    .get(req.params)
+    .then(result => res.json(result))
+})
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
+app.post('/identity', (req, res) => {
+  identity
+    .post(req.params)
+    .then(result => res.json(result))
+})
 
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
+app.get('/jobs', (req, res) => {
+  jobs
+    .get(req.params)
+    .then(result => res.json(result))
+})
 
-  socket.on('data', (socketData) => {
-    try{
-        execute(socketData, socket);
-    }catch(e){ console.log(e, socketData) }
-  });
-});
+app.post('/jobs', (req, res) => {
+  jobs
+    .post(req.params)
+    .then(result => res.json(result))
+})
 
-http.listen(3000, () => {
+app.listen(3000, () => {
   console.log('listening on *:3000');
 });

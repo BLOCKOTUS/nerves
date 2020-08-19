@@ -1,18 +1,26 @@
+const { user1 } = require('../../fixtures/keypairs');
 
-const execute = ({method, data, socket, reason}) => {
+const identity = require('../../../organs/identity/fabric/identity/javascript');
 
-    // submit job
+const post = async (data) => {
+    const transaction = await identity.create(data);
 
-    // then
-    socket.emit('answer', JSON.stringify({
-        reason,
-        answer: {
+    return transaction ? {success: true} : {sucess: false}
+}
+
+const get = (data) => {
+    return new Promise((resolve, reject) => {
+        resolve({
+            data: {
+                publicKey: user1.publicKey,
+                id: 1,
+            },
             success: true,
-            data
-        }
-    }))
+        })
+    })
 }
 
 module.exports = {
-    execute
+    get,
+    post
 }

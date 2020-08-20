@@ -3,24 +3,19 @@ const { user1, user2, user3 } = require('../../fixtures/keypairs');
 const identity = require('../../../organs/identity/fabric/identity/javascript');
 
 // Should create an Identity
-// Require Admin privileges
 const create = async (data) => {
-    const transaction = await identity.create(data);
-
+    const transaction = await identity.createIdentity(data);
     return transaction ? {success: true} : {sucess: false}
 }
 
 // Should return the user Identity object
 const get = (data) => {
-    return new Promise((resolve, reject) => {
-        resolve({
-            data: {
-                publicKey: user1.publicKey,
-                id: 1,
-            },
-            success: true,
-        })
-    })
+    const transaction 
+        = data.id 
+        ? await identity.queryIdentity(data.id) 
+        : await identity.queryIdentity();
+
+    return transaction ? {success: true} : {sucess: false}
 }
 
 // Should return the Verificators assigned to a user when registering

@@ -1,12 +1,12 @@
 var app = require('express')();
 
 const identity = require('./organs/identity');
-const jobs = require('./organs/jobs');
+const job = require('./organs/job');
 const user = require('./organs/user');
 
 const organs = {
     identity,
-    jobs
+    job
 }
 
 // create and register a new user
@@ -33,15 +33,15 @@ app.post('/identity', (req, res) => {
     .catch(res.status(400));
 })
 
-app.get('/jobs', (req, res) => {
-  jobs
+app.get('/job', (req, res) => {
+  job
     .get(req.params)
     .then(result => res.json(result))
     .catch(res.status(400));
 })
 
-app.post('/jobs', (req, res) => {
-  jobs
+app.post('/job', (req, res) => {
+  job
     .post(req.params)
     .then(result => res.json(result))
     .catch(res.status(400));

@@ -40,37 +40,131 @@ app
       });
   })
 
-// // get my identity
-// app.get('/identity', (req, res) => {
-//   identity
-//     .getVerificators()
-//     .then(result => res.json(result))
-//     .catch(res.status(400));
-// })
+  // create a shared keypair
+  .post('/user/keypair', (req, res) => {
+    console.log(req.body)
+    user
+      .shareKeypair(req.body)
+      .then(result => res.json({
+        ...result,
+        success: true,
+        message: 'Successfully created shared keypair.'
+      }))
+      .catch(e => {
+        res.json({
+          success: false,
+          message: e.message
+        })
+      });
+  })
 
-// // create my identity
-// app.post('/identity', (req, res) => {
-//   identity
-//     .create(req.params)
-//     .then(result => res.json(result))
-//     .catch(res.status(400));
-// })
+  // get a keypair
+  .post('/user/keypair/get', (req, res) => {
+    console.log(req.body)
+    user
+      .getKeypair(req.body)
+      .then(result => res.json({
+        keypair: result,
+        success: true,
+        message: 'Successfully got keypair.'
+      }))
+      .catch(e => {
+        res.json({
+          success: false,
+          message: e.message
+        })
+      });
+  })
 
-// // get my job list
-// app.get('/job', (req, res) => {
-//   job
-//     .get(req.params)
-//     .then(result => res.json(result))
-//     .catch(res.status(400));
-// })
+  // create and register a new identity
+  .post('/identity', (req, res) => {
+    console.log(req.body)
+    identity
+      .create(req.body)
+      .then(result => res.json({
+        ...result,
+        success: true,
+        message: 'Successfully created identity.'
+      }))
+      .catch(e => {
+        res.json({
+          success: false,
+          message: e.message
+        })
+      });
+  })
 
-// // post a job
-// app.post('/job', (req, res) => {
-//   job
-//     .post(req.params)
-//     .then(result => res.json(result))
-//     .catch(res.status(400));
-// })
+  // create a new job
+  .post('/job', (req, res) => {
+    console.log(req.body)
+    job
+      .create(req.body)
+      .then(result => res.json({
+        ...result,
+        success: true,
+        message: 'Successfully created job.'
+      }))
+      .catch(e => {
+        res.json({
+          success: false,
+          message: e.message
+        })
+      });
+  })
+
+  // list jobs
+  .post('/job/list', (req, res) => {
+    console.log(req.body)
+    job
+      .list(req.body)
+      .then(result => res.json({
+        list: result,
+        success: true,
+        message: 'Successfully listed jobs.'
+      }))
+      .catch(e => {
+        res.json({
+          success: false,
+          message: e.message
+        })
+      });
+  })
+
+  // get job details
+  .post('/job/get', (req, res) => {
+    console.log(req.body)
+    job
+      .get(req.body)
+      .then(result => res.json({
+        job: result,
+        success: true,
+        message: 'Successfully got the details of the job.'
+      }))
+      .catch(e => {
+        res.json({
+          success: false,
+          message: e.message
+        })
+      });
+  })
+
+   // complete a job
+   .post('/job/complete', (req, res) => {
+    console.log(req.body)
+    job
+      .complete(req.body)
+      .then(() => res.json({
+        success: true,
+        message: 'Successfully completed the job.'
+      }))
+      .catch(e => {
+        res.json({
+          success: false,
+          message: e.message
+        })
+      });
+  })
+
 
   .listen(3000, () => {
     console.log('listening on *:3000');

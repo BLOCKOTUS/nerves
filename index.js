@@ -17,7 +17,21 @@ app
   .use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+  })
+
+  .use((req, res, next) => {
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const splitted = Buffer.from(b64auth, 'base64').toString().split(':');
+    const username = splitted[0];
+    splitted.shift();
+    const rawWallet = splitted.join(':');
+    try{
+      const wallet = JSON.parse(rawWallet);
+      req.body.user = { username, wallet };
+    }catch(e) { console.log(e) }
+
     next();
   })
 

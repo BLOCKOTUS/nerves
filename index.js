@@ -3,9 +3,9 @@ const app = express();
 const bodyParser = require("body-parser");
 const { logger } = require('@tinyhttp/logger');
 
-const user = require('../organs/user/fabric/user/javascript');
-const identity = require('../organs/identity/fabric/identity/javascript');
-const job = require('../organs/job/fabric/job/javascript');
+const user = require('../organs/user/api');
+const identity = require('../organs/identity/api');
+const job = require('../organs/job/api');
 
 app
   .use(logger())

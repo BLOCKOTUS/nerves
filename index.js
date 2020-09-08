@@ -29,7 +29,7 @@ app
     const rawWallet = splitted.join(':');
     try{
       const wallet = JSON.parse(rawWallet);
-      req.body.user = { username, wallet };
+      req.method === 'GET' ? req.query.user = { username, wallet } : req.body.user = { username, wallet };
     }catch(e) { console.log(e) }
 
     next();
@@ -73,10 +73,10 @@ app
   })
 
   // get a keypair
-  .post('/user/keypair/get', (req, res) => {
-    console.log(req.body)
+  .get('/user/keypair/get', (req, res) => {
+    console.log(req.query)
     user
-      .getKeypair(req.body)
+      .getKeypair(req.query)
       .then(result => res.json({
         keypair: result,
         success: true,
@@ -127,10 +127,10 @@ app
   })
 
   // list jobs
-  .post('/job/list', (req, res) => {
-    console.log(req.body)
+  .get('/job/list', (req, res) => {
+    console.log(req.query)
     job
-      .list(req.body)
+      .list(req.query)
       .then(result => res.json({
         list: result,
         success: true,
@@ -145,10 +145,10 @@ app
   })
 
   // get job details
-  .post('/job/get', (req, res) => {
-    console.log(req.body)
+  .get('/job/get', (req, res) => {
+    console.log(req.query)
     job
-      .get(req.body)
+      .get(req.query)
       .then(result => res.json({
         job: result,
         success: true,

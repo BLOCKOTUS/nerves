@@ -108,6 +108,24 @@ app
       });
   })
 
+  // get identity
+  .get('/identity', (req, res) => {
+    console.log(req.query)
+    identity
+      .get(req.query)
+      .then(result => res.json({
+        identity: result,
+        success: true,
+        message: 'Successfully got identity.'
+      }))
+      .catch(e => {
+        res.json({
+          success: false,
+          message: e.message
+        })
+      });
+  })
+
   // create a new job
   .post('/job', (req, res) => {
     console.log(req.body)

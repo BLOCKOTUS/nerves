@@ -54,7 +54,7 @@ app
       });
   })
 
-  // create a shared keypair
+  // create a keypair
   .post('/user/keypair', (req, res) => {
     console.log(req.body)
     user
@@ -73,7 +73,7 @@ app
   })
 
   // get a keypair
-  .get('/user/keypair/get', (req, res) => {
+  .get('/user/keypair', (req, res) => {
     console.log(req.query)
     user
       .getKeypair(req.query)
@@ -145,7 +145,7 @@ app
   })
 
   // get job details
-  .get('/job/get', (req, res) => {
+  .get('/job', (req, res) => {
     console.log(req.query)
     job
       .get(req.query)

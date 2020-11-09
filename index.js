@@ -1,10 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { logger } = require('@tinyhttp/logger');
+import express from 'express';
+import bodyParser from 'body-parser';
+import { logger } from '@tinyhttp/logger';
 
-const user = require('../organs/user/api');
-const identity = require('../organs/identity/api');
-const job = require('../organs/job/api');
+import * as user from '../organs/user/api/index.js';
+import * as identity from '../organs/identity/api/index.js';
+import * as job from '../organs/job/api/index.js';
 
 const app = express();
 

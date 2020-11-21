@@ -203,7 +203,8 @@ app
     console.log(req.query);
     did
       .request(req.query)
-      .then(() => res.json({
+      .then(result => res.json({
+        data: result,
         success: true,
         message: 'Successfully requested by DID url.',
       }))

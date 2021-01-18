@@ -2,10 +2,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { logger } from '@tinyhttp/logger';
 
-import * as user from '../organs/user/api/index.minified.js';
-import * as identity from '../organs/identity/api/index.minified.js';
-import * as job from '../organs/job/api/index.minified.js';
-import * as did from '../organs/did/api/index.minified.js';
+import user from '../organs/user/api/index.minified.js';
+import identity from '../organs/identity/api/index.minified.js';
+import job from '../organs/job/api/index.minified.js';
+import did from '../organs/did/api/index.minified.js';
 
 const app = express();
 

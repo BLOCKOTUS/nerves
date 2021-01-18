@@ -5,6 +5,7 @@ import { logger } from '@tinyhttp/logger';
 import * as user from '../organs/user/api/index.minified.js';
 import * as identity from '../organs/identity/api/index.minified.js';
 import * as job from '../organs/job/api/index.minified.js';
+import * as did from '../organs/did/api/index.minified.js';
 
 const app = express();
 
@@ -188,6 +189,24 @@ app
       .then(() => res.json({
         success: true,
         message: 'Successfully completed the job.',
+      }))
+      .catch(e => {
+        res.json({
+          success: false,
+          message: e.message,
+        });
+      });
+  })
+
+  // request by DID url
+  .get('/did', (req, res) => {
+    console.log(req.query);
+    did
+      .request(req.query)
+      .then(result => res.json({
+        data: result,
+        success: true,
+        message: 'Successfully requested by DID url.',
       }))
       .catch(e => {
         res.json({

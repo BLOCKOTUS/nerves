@@ -1,9 +1,9 @@
 # BLOCKOTUS Nerves
 
 ## Abstract
-Simple HTTP server, built with Express, that makes good use of Fabric-Network 2.2.0.
+Simple HTTP server, following Blockotus Open and Decentralized Standard specifications.
 
-This repository is part of the BLOCKOTUS Organism (https://github.com/BLOCKOTUS/organism).
+This repository is part of BLOCKOTUS Organism (https://github.com/BLOCKOTUS/organism).
 
 ## Usage
 To run the server, executes:

@@ -2,10 +2,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { logger } from '@tinyhttp/logger';
 
-import user from '../organs/user/api/dist/index.js';
+import did from '../organs/did/api/dist/index.js';
 import identity from '../organs/identity/api/dist/index.js';
 import job from '../organs/job/api/dist/index.js';
-import did from '../organs/did/api/dist/index.js';
+import keypair from '../organs/keypair/api/dist/index.js';
+import user from '../organs/user/api/dist/index.js';
 
 const app = express();
 
@@ -56,10 +57,10 @@ app
   })
 
   // create a keypair
-  .post('/user/keypair', (req, res) => {
+  .post('/keypair', (req, res) => {
     console.log(req.body);
-    user
-      .shareKeypair(req.body)
+    keypair
+      .share(req.body)
       .then(result => res.json({
         ...result,
         success: true,
@@ -74,10 +75,10 @@ app
   })
 
   // get a keypair
-  .get('/user/keypair', (req, res) => {
+  .get('/keypair', (req, res) => {
     console.log(req.query);
-    user
-      .getKeypair(req.query)
+    keypair
+      .get(req.query)
       .then(result => res.json({
         keypair: result,
         success: true,

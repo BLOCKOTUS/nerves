@@ -1,7 +1,7 @@
 {
   "name": "blockotus-nerves",
-  "version": "0.2.4-alpha",
-  "description": "",
+  "version": "0.2.5-alpha",
+  "description": "BLOCKOTUS Nerves API. Open and Decentralized Standard.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -33,14 +33,13 @@ app
     try {
       const wallet = JSON.parse(rawWallet);
       req.method === 'GET' ? req.query.user = { username, wallet } : req.body.user = { username, wallet };
-    } catch (e) { console.log(e); }
+    } catch (e) { null; }
 
     next();
   })
 
   // create and register a new user
   .post('/user', (req, res) => {
-    console.log(req.body);
     user
       .create(req.body)
       .then(result => res.json({
@@ -58,7 +57,6 @@ app
 
   // create a keypair
   .post('/keypair', (req, res) => {
-    console.log(req.body);
     keypair
       .share(req.body)
       .then(result => res.json({
@@ -76,7 +74,6 @@ app
 
   // get a keypair
   .get('/keypair', (req, res) => {
-    console.log(req.query);
     keypair
       .get(req.query)
       .then(result => res.json({
@@ -94,7 +91,6 @@ app
 
   // create and register a new identity
   .post('/identity', (req, res) => {
-    console.log(req.body);
     identity
       .create(req.body)
       .then(result => res.json({
@@ -112,7 +108,6 @@ app
 
   // get identity
   .get('/identity', (req, res) => {
-    console.log(req.query);
     identity
       .get(req.query)
       .then(result => res.json({
@@ -130,7 +125,6 @@ app
 
   // create a new job
   .post('/job', (req, res) => {
-    console.log(req.body);
     job
       .create(req.body)
       .then(result => res.json({
@@ -148,7 +142,6 @@ app
 
   // list jobs
   .get('/job/list', (req, res) => {
-    console.log(req.query);
     job
       .list(req.query)
       .then(result => res.json({
@@ -166,7 +159,6 @@ app
 
   // get job details
   .get('/job', (req, res) => {
-    console.log(req.query);
     job
       .get(req.query)
       .then(result => res.json({
@@ -184,7 +176,6 @@ app
 
   // complete a job
   .post('/job/complete', (req, res) => {
-    console.log(req.body);
     job
       .complete(req.body)
       .then(() => res.json({
@@ -201,7 +192,6 @@ app
 
   // request by DID url
   .get('/did', (req, res) => {
-    console.log(req.query);
     did
       .request(req.query)
       .then(result => res.json({

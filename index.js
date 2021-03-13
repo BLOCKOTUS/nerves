@@ -55,6 +55,23 @@ app
       });
   })
 
+  // get user
+  .get('/user', (req, res) => {
+    user
+      .get(req.query)
+      .then(result => res.json({
+        data: result,
+        success: true,
+        message: 'Successfully got user.',
+      }))
+      .catch(e => {
+        res.json({
+          success: false,
+          message: e.message,
+        });
+      });
+  })
+
   // create a keypair
   .post('/keypair', (req, res) => {
     keypair

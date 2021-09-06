@@ -8,6 +8,8 @@ import job from '../organs/job/api/dist/index.js';
 import keypair from '../organs/keypair/api/dist/index.js';
 import user from '../organs/user/api/dist/index.js';
 
+const PORT = process.env.NERVES_PORT || 3000;
+
 const app = express();
 
 app
@@ -224,6 +226,6 @@ app
       });
   })
 
-  .listen(3000, () => {
-    console.log('listening on *:3000');
+  .listen(PORT, () => {
+    console.log(`Nerves listening on PORT: ${PORT}`);
   });

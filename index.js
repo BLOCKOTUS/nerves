@@ -8,7 +8,7 @@ import job from '../organs/job/api/dist/index.js';
 import keypair from '../organs/keypair/api/dist/index.js';
 import user from '../organs/user/api/dist/index.js';
 
-const PORT = process.env.NERVES_PORT || 3000;
+const PORT = process.env.NERVES_PORT || 3001;
 
 const app = express();
 
